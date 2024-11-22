@@ -20,6 +20,15 @@ stone_tools_data <- data.frame(
   material_provenance = c("local", "local", "local", "non-local", "local", "non-local")
 )
 
-# Display the data frame
+
 knitr::kable(stone_tools_data)
 ```
+
+```{r}
+write.csv(stone_tools_data, "data/stone_tools_data.csv")
+```
+
+```{r}
+stone_tools_data2 <- read.csv("data/stone_tools_data.csv")[,-1]
+```
+
