@@ -10,7 +10,6 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r}
-# Combining the vectors into a data frame
 stone_tools_data <- data.frame(
   inventory_number = c("LN15", "LN17", "LN18", "LN21", "LN23", "LN24"),
   blength = c(18, 14, 21, 14, 17, 16),
@@ -31,4 +30,77 @@ write.csv(stone_tools_data, "data/stone_tools_data.csv")
 ```{r}
 stone_tools_data2 <- read.csv("data/stone_tools_data.csv")[,-1]
 ```
+
+{r}
+source("scripts/plotting_function.R")
+
+plot_name <- "plots/session3_histogram_length_breadth_thickness.png"
+
+png(plot_name, width = 700, height = 300)
+
+three_histograms(
+  variable_1 = stone_tools_data$blength,
+  variable_2 = stone_tools_data$breadth,
+  variable_3 = stone_tools_data$thickness,
+  variable_1_main = "Histogram of count of artifacts\nby length of blade",
+  variable_2_main = "Histogram of count of artifacts\nby breadth of blade",
+  variable_3_main = "Histogram of count of artifacts\nby thickness of blade",
+  variable_1_xlab = "Length (mm)",
+  variable_2_xlab = "Breadth (mm)",
+  variable_3_xlab = "Thickness (mm)"
+)
+
+dev.off()
+
+
+{r}
+knitr::include_graphics(plot_name)
+
+
+## Length vs breadth
+
+Create a plot displaying the relationship between length and breadth. Save it as a PNG file in “plots” subdirectory.
+
+{r}
+plot_name <- "plots/session3_scatter_length_breadth.png"
+
+png(plot_name, width = 600, height = 400)
+
+plot(stone_tools_data$blength, stone_tools_data$breadth)
+
+dev.off()
+
+
+{r}
+knitr::include_graphics(plot_name)
+
+
+## Length vs breadth vs type-provenance class
+
+Create a plot displaying the relationship between length and breadth, this time marking (point type, colour) objects by their “type_and_provenance”. Save it as both a PNG and a EPS file in “plots” subdirectory.
+
+{r}
+
+
+
+
+
+---
+
+
+
+{r}
+plot_name <- "plots/session3_barplot_material_type_and_provenance_ggplot.png"
+
+png(plot_name, width = 700)
+
+ggplot(stone_tools_data, aes(x = type_and_provenance)) + 
+  geom_bar() + 
+  labs(title = "Bar plot of Blade Shape", x = "Blade Shape categories")
+
+dev.off()
+
+
+{r}
+knitr::include_graphics(plot_name)
 
